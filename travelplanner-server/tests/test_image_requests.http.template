@@ -1,0 +1,39 @@
+### Request 1: create image 1
+### Response: new image
+POST http://localhost:8080/images/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "imagePath": "testPathString4"
+}
+
+### Request 2: retrieve image 1, update ID with Request 1's auto-generated ID
+### Response: Request 1's record
+
+GET http://localhost:8080/images/63dace969306d80f07cfadb2
+
+
+### Request 3: update image 1, update ID with Request 1's auto-generated ID
+### Response: updated image
+PUT http://localhost:8080/images/63dace969306d80f07cfadb2/edit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "imagePath": "updatedPathString4"
+
+}
+
+### Request 4: delete image 1, update ID with Request 1's auto-generated ID
+### Response: deleted image
+DELETE http://localhost:8080/images/63dace969306d80f07cfadb2
+Authorization: Bearer <access token without quotes>
+
+### Request 5: get deleted image 1, update ID with Request 1's auto-generated ID
+### Response: null
+GET http://localhost:8080/images/63dace969306d80f07cfadb2
+Authorization: Bearer <access token without quotes>
+
+### Request 6: get all images
+GET http://localhost:8080/images/

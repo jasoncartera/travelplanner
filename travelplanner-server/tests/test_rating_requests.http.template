@@ -1,0 +1,48 @@
+### Request 1: create rating 1
+### Response: new rating
+POST http://localhost:8080/ratings/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "experienceID": "507f1f77bcf86cd799439041",
+    "rating": 2
+}
+
+### Request 2: retrieve rating 1, update ID with Request 1's auto-generated ID
+### Response: Request 1's record
+
+GET http://localhost:8080/ratings/63dacc4556ac683484fb3b28
+
+
+### Request 3: update rating 1, update ID with Request 1's auto-generated ID
+### Response: updated rating
+PUT http://localhost:8080/ratings/63dacc4556ac683484fb3b28/edit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "experienceID": "507f1f77bcf86cd799439011",
+    "rating": 1
+}
+
+### Request 4: delete rating 1, update ID with Request 1's auto-generated ID
+### Response: deleted rating
+DELETE http://localhost:8080/ratings/63dacc4556ac683484fb3b28
+Authorization: Bearer <access token without quotes>
+
+
+### Request 5: get deleted rating 1, update ID with Request 1's auto-generated ID
+### Response: null
+GET http://localhost:8080/ratings/63dacc4556ac683484fb3b28
+
+### Request 6: get all ratings for an experience
+GET http://localhost:8080/ratings//experience/507f1f77bcf86cd799439041/all
+
+### Request 7: get average rating for an experience
+GET http://localhost:8080/ratings//experience/507f1f77bcf86cd799439041
+
+### Request 8: get average rating for an experience
+GET http://localhost:8080/ratings/experience/63e0379a81dea90818144e36/V30FAI6GFPE8GUVkxRqlgwPjvifd726B@clients
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>

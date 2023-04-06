@@ -1,0 +1,142 @@
+### Request 1: create experience 1
+### Response: new experience
+POST http://localhost:8080/experiences/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "experienceTitle": "carnival",
+    "description": "family carnival",
+    "location": {
+        "type": "Point",
+        "coordinates": [-73.884518, 40.752853]
+        },
+    "imageID": 7,
+    "keywords": ["kid-friendly", "good on a budget"]
+}
+
+### Request 2: retrieve experience 1, update ID with Request 1's auto-generated ID
+### Response: Request 1's record
+GET http://localhost:8080/experiences/63d3f816ce9372b18f977c2e
+
+### Request 3: update experience 1, update ID with Request 1's auto-generated ID
+### Response: updated experience
+PUT http://localhost:8080/experiences/63d3f816ce9372b18f977c2e/edit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "experienceTitle": "different carnival",
+    "description": "different family carnival",
+    "location": {
+        "type": "Point",
+        "coordinates": [11, 48]
+        },
+    "imageID": 1,
+    "keywords": ["kid-friendly", "luxury"]
+}
+
+### Request 4: Get all experiences
+GET http://localhost:8080/experiences/
+
+### Request 5: search for experiences with the 'kid' keyword
+### Response: Request 1's record
+GET http://localhost:8080/experiences/search/keyword HTTP/1.1
+Content-Type: application/json
+
+{
+    "keyword": "kid"
+}
+
+### Request 6: create experience 2
+### Response: new experience
+POST http://localhost:8080/experiences/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "experienceTitle": "yacht cruise",
+    "description": "luxury private cruise",
+    "location": {
+        "type": "Point",
+        "coordinates": [8.616135, 44.355554]
+        },
+    "imageID": 2,
+    "keywords": ["for couples", "expensive"]
+}
+
+### Request 7: search for experiences with the 'kid' or 'expensive' keywords
+### Response: experience 1 & 2
+GET http://localhost:8080/experiences/search/keyword HTTP/1.1
+Content-Type: application/json
+
+{
+    "keyword": ["kid", "luxury"]
+}
+
+### Request 8: search for experiences with the 'kid' or 'luxury' keywords
+### Response: experience 1 & 2
+GET http://localhost:8080/experiences/search/keyword HTTP/1.1
+Content-Type: application/json
+
+{
+    "keyword": ["kid", "luxury"]
+}
+
+### Request 9: search for experiences within X miles of Y coordinates (longitude, latitude)
+### Response: experience 2
+GET http://localhost:8080/experiences/search/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "mileRadius": 25,
+    "coordinates": [8.583593, 44.425116]
+}
+
+### Request 10: search for experiences within X miles of a valid zip code/country combo
+### Response: experience 1
+GET http://localhost:8080/experiences/search/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "mileRadius": 25,
+    "zipCode": "10010",
+    "countryName": "United States"
+}
+
+### Request 11: search for experiences within X miles of an invalid zip code/country combo
+### Response: incompatible combo error
+GET http://localhost:8080/experiences/search/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "mileRadius": 25,
+    "zipCode": "10010",
+    "countryName": "Canada"
+}
+
+### Request 12: delete experience 1, update ID with Request 1's auto-generated ID
+### Response: deleted experience
+DELETE http://localhost:8080/experiences/63d34511ad3139cc99d491d0
+Authorization: Bearer <access token without quotes>
+
+### Request 13: get deleted experience 1, update ID with Request 1's auto-generated ID
+### Response: null
+GET http://localhost:8080/experiences/63d34511ad3139cc99d491d0
+Authorization: Bearer <access token without quotes>
+
+### Request 14: update experience avg rating
+### Response: updated experience rating
+PUT http://localhost:8080/experiences/63efe5172f233e350d1b165e/avgRating HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "avgRating": 4
+}
+
+
+### Request 10: retrieve experiences by user
+### Response: Records by user
+GET http://localhost:8080/experiences/user
+Content-Type: application/json
+Authorization: Bearer <token here>

@@ -1,0 +1,41 @@
+### Request 1: create trip 1
+### Response: new trip
+POST http://localhost:8080/trips/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes>
+
+{
+    "tripTitle": "test experience title "
+}
+
+### Request 2: retrieve trip 1, update ID with Request 1's auto-generated ID
+### Response: Request 1's record
+
+GET http://localhost:8080/trips/63d400a0fad738753f47f8e4
+Authorization: Bearer <access token without quotes>
+
+### Request 3: update trip 1, update ID with Request 1's auto-generated ID
+### Response: updated trip
+PUT http://localhost:8080/trips/63d3f816ce9372b18f977c2e/edit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer <access token without quotes> 
+
+{
+    "tripTitle": "updated test experience title",
+    "userEmail": "updatedfakeemail@oregonstate.edu",
+    "experienceList": ["experienceId1", "experienceId2"]
+}
+
+### Request 4: delete trip 1, update ID with Request 1's auto-generated ID
+### Response: deleted trip
+DELETE http://localhost:8080/trips/63d34511ad3139cc99d491d0
+Authorization: Bearer <access token without quotes>
+
+### Request 5: get deleted trip 1, update ID with Request 1's auto-generated ID
+### Response: null
+GET http://localhost:8080/trips/63d34511ad3139cc99d491d0
+
+### Reuest 6: Get all trips by loggedin user
+### response: trips
+GET http://localhost:8080/trips/
+Authorization: Bearer <access token without quotes>
